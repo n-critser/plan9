@@ -1,0 +1,116 @@
+#+TITLE: README.org
+#+AUTHOR: N-CRITSER
+#+DATE:<2014-04-10 Thu>
+
+
+
+http://www.plan9.bell-labs.com/wiki/plan9/lfaq/
+
+ http://plan9.bell-labs.com/sources/contrib/miller/9pi.img.gz
+* From the terminal run df -h
+/dev/sdb1       147G   89G   51G  64% /media/me/backupDrive
+/dev/sdc1        15G   32K   15G   1% /media/me/3266-3439  <---sd CARD
+
+
+* Unmount the SD card
+$ ~/Dev/plan9 $ umount /media/me/3266-3439 
+
+* before dd fdisk -l
+chaos dev # df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        28G   14G   13G  54% /
+udev            1.9G  4.0K  1.9G   1% /dev
+tmpfs           781M  1.1M  780M   1% /run
+none            5.0M     0  5.0M   0% /run/lock
+none            2.0G  212K  2.0G   1% /run/shm
+none            100M   12K  100M   1% /run/user
+/dev/sda1       461M   38M  400M   9% /boot
+/dev/sda5        92G   85G  2.9G  97% /home
+/dev/sdb1       147G   89G   51G  64% /media/me/boomstick
+chaos dev # fdisk -l
+
+Disk /dev/sda: 320.1 GB, 320072933376 bytes
+255 heads, 63 sectors/track, 38913 cylinders, total 625142448 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0008a75c
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048      976895      487424   83  Linux
+/dev/sda2          976896    59570175    29296640   83  Linux
+/dev/sda3        59570176    71288831     5859328   82  Linux swap / Solaris
+/dev/sda4        71290878   266600447    97654785    5  Extended
+/dev/sda5        71290880   266600447    97654784   83  Linux
+
+Disk /dev/sdb: 160.0 GB, 160041885696 bytes
+255 heads, 63 sectors/track, 19457 cylinders, total 312581808 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x601b3af2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              63   312576704   156288321   83  Linux
+
+Disk /dev/sdc: 15.9 GB, 15931539456 bytes
+255 heads, 63 sectors/track, 1936 cylinders, total 31116288 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1            8192    31116287    15554048    c  W95 FAT32 (LBA)
+
+
+* DD
+$ sudo dd bs=4M if=~/Dev/plan9/image/9pi.img of=/dev/sdc
+!!!! NOTICE NO NUMBER AFTER THE /DEV/SDC THATS CORRECT
+
+CLEAR THE BUFFER WITH THE FOLLOWING COMMAND
+$ sudo sync 
+
+check 
+$ cd /dev
+$ sudo fdisk -l 
+
+* after dd fdisk -l OR WITH UNMOUNTED SD CARD
+chaos dev # fdisk -l
+
+Disk /dev/sda: 320.1 GB, 320072933376 bytes
+255 heads, 63 sectors/track, 38913 cylinders, total 625142448 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0008a75c
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048      976895      487424   83  Linux
+/dev/sda2          976896    59570175    29296640   83  Linux
+/dev/sda3        59570176    71288831     5859328   82  Linux swap / Solaris
+/dev/sda4        71290878   266600447    97654785    5  Extended
+/dev/sda5        71290880   266600447    97654784   83  Linux
+
+Disk /dev/sdb: 160.0 GB, 160041885696 bytes
+255 heads, 63 sectors/track, 19457 cylinders, total 312581808 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x601b3af2
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              63   312576704   156288321   83  Linux
+
+Disk /dev/sdc: 15.9 GB, 15931539456 bytes
+128 heads, 63 sectors/track, 3858 cylinders, total 31116288 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1              63      120959       60448+   b  W95 FAT32
+/dev/sdc2          120960     3782015     1830528   39  Plan 9
+
+
