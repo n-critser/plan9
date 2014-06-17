@@ -73,7 +73,7 @@ Disk identifier: 0x00000000
 chaos dev # 
 
 * DD
-sudo dd bs=1M if=9pi.img of=/dev/sdc
+sudo dd bs=1M if=9pi.img of=/dev/sd<DRIVE_LETTER_HERE>
 !!!! NOTICE NO NUMBER AFTER THE /DEV/SDC THATS CORRECT
 
 check 
